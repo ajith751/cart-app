@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple Shopping Cart</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .product { margin-bottom: 10px; }
+    #cart { margin-top: 30px; }
+    button { padding: 5px 10px; margin-left: 10px; }
+  </style>
+</head>
+<body>
+
+  <h1>🛒 Simple Shopping Tool</h1>
+
+  <div class="product">
+    <span>🍎 Apple</span>
+    <button onclick="addToCart('Apple')">Add to Cart</button>
+  </div>
+  <div class="product">
+    <span>🍌 Banana</span>
+    <button onclick="addToCart('Banana')">Add to Cart</button>
+  </div>
+  <div class="product">
+    <span>🍕 Pizza</span>
+    <button onclick="addToCart('Pizza')">Add to Cart</button>
+  </div>
+
+  <hr />
+
+  <h2>🧺 Your Cart</h2>
+  <ul id="cart-list"></ul>
+  <p id="empty-message">Your cart is empty!</p>
+  <button onclick="clearCart()">Clear Cart</button>
+
+  <script>
+    function addToCart(item) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(item);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(item + " added to cart!");
+      renderCart();
+    }
+
+    function renderCart() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let cartList = document.getElementById("cart-list");
+      let emptyMessage = document.getElementById("empty-message");
+
+      cartList.innerHTML = "";
+
+      if (cart.length === 0) {
+        emptyMessage.style.display = "block";
+      } else {
+        emptyMessage.style.display = "none";
+        cart.forEach((item, index) => {
+          let li = document.createElement("li");
+          li.textContent = item + " ";
+          let removeBtn = document.createElement("button");
+          removeBtn.textContent = "Remove";
+          removeBtn.onclick = function () {
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
+          };
+          li.appendChild(removeBtn);
+          cartList.appendChild(li);
+        });
+      }
+    }
+
+    function clearCart() {
+      localStorage.removeItem("cart");
+      renderCart();
+    }
+
+    // Render cart on load
+    window.onload = renderCart;
+  </script>
+</body>
+</html>
+
