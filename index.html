@@ -8,7 +8,7 @@
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
-      background-color: green;  /* Change this color */
+      background-color: green;
       color: white;
     }
     #products div {
@@ -16,6 +16,13 @@
       background: rgba(255, 255, 255, 0.2);
       padding: 8px;
       border-radius: 5px;
+      display: flex; /* Added for image and text alignment */
+      align-items: center; /* Vertically center items */
+    }
+    #products img {
+      width: 50px; /* Adjust as needed */
+      height: 50px;
+      margin-right: 10px; /* Space between image and text */
     }
     button {
       margin-left: 10px;
@@ -44,18 +51,17 @@
 
   <h2>Products</h2>
   <div id="products">
-    <!-- Products will be listed here -->
-  </div>
+    </div>
 
   <h2>Your Cart</h2>
   <div id="cartItems">Your cart is empty!</div>
 
   <script>
-    // Sample products
+    // Sample products (include image URLs)
     const products = [
-      { id: 1, name: "Apple", price: 10 },
-      { id: 2, name: "Banana", price: 5 },
-      { id: 3, name: "Orange", price: 8 }
+      { id: 1, name: "Apple", price: 10, image: "apple.jpg" },
+      { id: 2, name: "Banana", price: 5, image: "banana.jpg" },
+      { id: 3, name: "Orange", price: 8, image: "orange.jpg" }
     ];
 
     const productsDiv = document.getElementById('products');
@@ -69,7 +75,8 @@
       productsDiv.innerHTML = '';
       products.forEach(product => {
         const prodDiv = document.createElement('div');
-        prodDiv.textContent = `${product.name} - ₹${product.price}`;
+        // Include image in product display
+        prodDiv.innerHTML = `<img src="${product.image}" alt="${product.name}" />${product.name} - ₹${product.price}`;
         const addBtn = document.createElement('button');
         addBtn.textContent = 'Add to Cart';
         addBtn.onclick = () => addToCart(product.id);
@@ -126,4 +133,3 @@
   </script>
 </body>
 </html>
-
