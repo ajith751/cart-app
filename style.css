@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   padding: 20px;
-  background-color: green;  /* Change this to red, blue, etc. */
+  background-color: blue;  /* Change this to red, blue, etc. */
   color: white; /* so text is visible on dark background */
 }
 
